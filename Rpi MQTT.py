@@ -1,17 +1,21 @@
 import paho.mqtt.client as mqtt
-import Adafruit_DHT
+import RPi.GPIO as GPIO
+
+import dht11
 import json
 import time
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.cleanup()
 
 # MQTT broker parameters
-MQTT_BROKER = "YOUR_HIVEMQ_BROKER_ADDRESS"
+MQTT_BROKER = "broker.hivemq.com"
 MQTT_PORT = 1883
 MQTT_TOPIC = "YOUR_TOPIC_NAME"
 
 # DHT sensor parameters
-DHT_SENSOR = Adafruit_DHT.DHT11  # Replace with your sensor type (DHT11, DHT22, etc.)
-DHT_PIN = 4  # Replace with the GPIO pin connected to the DHT sensor
-
+instance = dht11.DHT11(pin = 14)
+result = instance.read()
 # MQTT client setup
 client = mqtt.Client()
 
@@ -30,7 +34,8 @@ client.connect(MQTT_BROKER, MQTT_PORT, 60)
 try:
     while True:
         # Read DHT sensor data
-        humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+        humidity = result.humidity
+        temperature = result.temperature
 
         if humidity is not None and temperature is not None:
             # Create a JSON payload
