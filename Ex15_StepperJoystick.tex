@@ -1,0 +1,44 @@
+\documentclass[../manual.tex]{subfiles}
+\input{arduinoLanguage.tex}
+
+\begin{document}
+
+\expname{Control speed of stepper motor using joystick}
+
+
+\expaim
+To control speed of stepper motor using a joystick
+
+\expdesc
+This experiment demonstrates controlling the stepper motor speed based on the position of the joystick
+
+\expcircuitconnection
+\begin{itemize}
+	\item Using the 8-pin RMC connector, connect one end to the Arduino Stepper port and the other end to the port near the Stepper Motor
+	\item Using the 8-pin RMC connector, connect one end to the Arduino Joystick port and the other end to the port near the Joystick
+\end{itemize}
+
+\expprogram
+\lstinputlisting[language=Arduino]{Code/Ex15_StepperJoystick.cpp}
+
+
+\expexplanation
+To use the Stepper motor, we make use of the library \textless \textbf{AccelStepper.h}\textgreater. The line \textbf{stepper.setSpeed(0)} and \textbf{stepper.runSpeed()} sets the speed of the Stepper Motor.
+This program shows how we can take input from one device and control the output of another device based on if, else if, else conditions.
+
+\expprocedure
+
+\begin{enumerate}
+	\item Make the circuit connections as mentioned above.
+	\item Install library \textbf{Stepper.h}, if not installed already
+	\item Upload the above program to the Arduino Nano.
+	\item Move the joystick around and observe the stepper motor
+\end{enumerate}
+
+\textbf{Follow steps 3-9 Getting Started section, to upload the code.
+	Instructions to install libraries are also given in the Getting Started section} \\
+
+\expresult
+On changing the position of the joystick, the speed of the stepper motor should change.
+
+\end{document}
